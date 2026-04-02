@@ -25,7 +25,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
 
 
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError, isLoading, isSuccess } = useQuery({
     queryKey: ['movie', query, currentPage],
     queryFn: () => searchMovies(query, currentPage),
     enabled: query !== '',
@@ -67,6 +67,7 @@ export default function App() {
       )}
       <Loader isLoading={isLoading}/>
       {isError && <ErrorMessage />}
+      {isSuccess && <ErrorMessage />}
       {data && data.results.length > 0 && <MovieGrid movies={data.results} onSelect={(movie) => setSelectMovie(movie)} />} 
       {selectMovie && <MovieModal movie={selectMovie} onClose={() => setSelectMovie(null)} />}
     </div>  
