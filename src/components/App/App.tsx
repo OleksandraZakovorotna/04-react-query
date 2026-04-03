@@ -38,10 +38,10 @@ export default function App() {
   }
 
   useEffect(() => {
-  if (data && data.results.length === 0) {
+  if (data && isSuccess && data.results.length === 0) {
     toast.error("No movies found for your request");
   }
-}, [data]);
+}, [data, isSuccess]);
 
   const totalPages = data?.total_pages ?? 0;
 
@@ -67,7 +67,6 @@ export default function App() {
       )}
       <Loader isLoading={isLoading}/>
       {isError && <ErrorMessage />}
-      {isSuccess && <ErrorMessage />}
       {data && data.results.length > 0 && <MovieGrid movies={data.results} onSelect={(movie) => setSelectMovie(movie)} />} 
       {selectMovie && <MovieModal movie={selectMovie} onClose={() => setSelectMovie(null)} />}
     </div>  
